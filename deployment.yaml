@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1 # for versions before 1.7.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          # name must match the volume name below
+          - name: nginx-content
+            mountPath: "/usr/share/nginx/html"
+      volumes:
+      - name: nginx-content
+        nfs:
+          server: freenas.local
+          path: "/mnt/data/website"
