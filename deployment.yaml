@@ -14,9 +14,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: docker
+        # image: docker
         # command: ["docker", "pull", "127.0.0.1:32000/nginx"]
         image: localhost:32000/nginx
+        # image: registry.container-registry:5000/nginx
         ports:
         - containerPort: 80
         volumeMounts:
